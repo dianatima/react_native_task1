@@ -21,11 +21,11 @@ const Input = ({
     setIsFocused(false);
   };
 
-  const [inputQuery, setInputQuery] = useState("");
+  // const [inputQuery, setInputQuery] = useState("");
 
-  const handlTextChange = (value) => {
-    setInputQuery(value);
-  };
+  // const handlTextChange = (value) => {
+  //   setInputQuery(value);
+  // };
 
   return (
     <View style={[styles.input, isFocused && styles.focused, outerStyles]}>
