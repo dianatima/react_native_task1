@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useFonts } from "expo-font";
 import { ActivityIndicator, StyleSheet } from "react-native";
 // import LoginScreen from "./screens/LoginScreen";
-import SignUpScreen from "./screens/SignUpScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
 
 // SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <LoginScreen /> */}
-    <SignUpScreen />
+    <RegistrationScreen />
     </View>
   );
 }

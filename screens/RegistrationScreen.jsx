@@ -18,7 +18,7 @@ import Button from "../components/Button";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-const SignUpScreen = () => {
+const RegistrationScreen = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,7 +140,7 @@ const SignUpScreen = () => {
   );
 };
 
-export default SignUpScreen;
+export default RegistrationScreen;
 
 const styles = StyleSheet.create({
   container: {
