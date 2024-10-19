@@ -2,7 +2,7 @@
 import { View } from "react-native";
 import { useFonts } from "expo-font";
 import { ActivityIndicator, StyleSheet } from "react-native";
-// import LoginScreen from "./screens/LoginScreen";
+import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 
 // SplashScreen.preventAutoHideAsync();
@@ -20,8 +20,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <LoginScreen /> */}
-    <RegistrationScreen />
+      <LoginScreen />
+      {/* <RegistrationScreen /> */}
     </View>
   );
 }
@@ -32,18 +32,5 @@ const styles = StyleSheet.create({
   },
   InnerContainer: {
     gap: 16,
-  },
-  image: {
-    position: "absolute",
-    height: "100%",
-    width: "100%",
-    top: 0,
-    bottom: 0,
-  },
-
-  title: {
-    textAlign: "center",
-    fontSize: 31,
-    fontWeight: "500",
   },
 });
