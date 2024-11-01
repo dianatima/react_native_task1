@@ -6,4 +6,6 @@ export const colors = {
   blue: "#1B4371",
   orange: "#FF6C00",
   gray: "#BDBDBD",
+  email: "rgba(33, 33, 33, 0.80)",
+  background: "rgba(0, 0, 0, 0.03)",
 };

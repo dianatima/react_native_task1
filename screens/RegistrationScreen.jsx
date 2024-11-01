@@ -18,7 +18,7 @@ import Button from "../components/Button";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation, route }) => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +46,7 @@ const RegistrationScreen = () => {
   };
 
   const onLogin = () => {
+    navigation.navigate("Login", { userEmail: email });
     console.log("Log in!");
   };
 

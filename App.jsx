@@ -1,9 +1,9 @@
 // import * as SplashScreen from "expo-splash-screen";
-import { View } from "react-native";
+import 'react-native-gesture-handler';
 import { useFonts } from "expo-font";
 import { ActivityIndicator, StyleSheet } from "react-native";
-import LoginScreen from "./screens/LoginScreen";
-import RegistrationScreen from "./screens/RegistrationScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import StackNavigator from './navigation/StackNavigator';
 
 // SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -19,10 +19,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <LoginScreen />
-      {/* <RegistrationScreen /> */}
-    </View>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
 
