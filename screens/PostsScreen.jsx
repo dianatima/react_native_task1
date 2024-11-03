@@ -8,11 +8,21 @@ import {
   import { colors } from "../styles/global";
   import CommentIcon from "../icons/CommentIcon";
   import LocationIcon from "../icons/LocationIcon";
+import { useRoute } from "@react-navigation/native";
   
-  const PostsScreen = ({ navigation, route }) => {
+const PostsScreen = ({ navigation }) => {
+    
+  const route = useRoute();
+  console.log('params', route.params);
+  
     const onLogin = () => {
       navigation.navigate("Comments");
       console.log("Open comments!");
+    };
+    
+    const onLocation = () => {
+      navigation.navigate("Map");
+      console.log("Open map!");
     };
   
     return (
@@ -45,12 +55,14 @@ import {
                   <Text style={styles.postCommment}>0</Text>
                 </View>
               </TouchableWithoutFeedback>
-              <View style={styles.locationWrap}>
-                <LocationIcon />
-                <Text style={styles.postTLocation}>
-                  Ivano-Frankivs'k Region, Ukraine
-                </Text>
-              </View>
+              <TouchableWithoutFeedback onPress={onLocation}>
+                <View style={styles.locationWrap}>
+                  <LocationIcon />
+                  <Text style={styles.postTLocation}>
+                    Ivano-Frankivs'k Region, Ukraine
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </View>
         </View>

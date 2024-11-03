@@ -11,6 +11,7 @@ import FeatherIcon from "../icons/FeatherIcon";
 import UserIcon from "../icons/UserIcon";
 import CreatePostIcon from "../icons/CreatePostIcon";
 import MapScreen from "../screens/MapScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 const Tab = createBottomTabNavigator()
 
@@ -25,7 +26,7 @@ const BottomTabNavigator = () => {
                 tabBarStyle: { height: 83, paddingTop: 9, alignItems: "center" },
                 }}
         >
-            <Tab.Screen name="PostsScreen" component={PostsScreen}
+            <Tab.Screen name="Posts" component={PostsScreen}
             options={ ({navigation}) => ({
                 title: 'Публікації',
                 headerRight: () => <LogoutBotton onPress={() => console.log("LOG OUT!")} />,
@@ -51,13 +52,6 @@ const BottomTabNavigator = () => {
                 tabBarIcon: ({focused}) => <UserIcon color={focused ? colors.orange: colors.balack_main} />,
             })}
             />
-            {/* <Tab.Screen name="Map" component={MapScreen}
-            options={ ({navigation}) => ({
-                title: "Map",
-                // headerShown: false,
-                tabBarIcon: ({focused}) => <UserIcon color={focused ? colors.orange: colors.balack_main} />,
-            })}
-            /> */}
         
             </Tab.Navigator>
     )
