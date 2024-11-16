@@ -9,25 +9,22 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
 } from "react-native";
-import { colors } from "../styles/global";
 import Input from "../components/Input";
-import { useState } from "react";
 import Button from "../components/Button";
+import { useState } from "react";
+import { colors } from "../../styles/global";
+import { useDispatch } from "react-redux";
+import { loginDB } from "../utils/auth";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-const RegistrationScreen = ({ navigation, route }) => {
-  const [login, setLogin] = useState("");
+const LoginScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-  const [isAvatar, setIsAvatar] = useState(false);
 
-  const handLoginChange = (value) => {
-    setLogin(value);
-  };
+  const dispatch = useDispatch();
 
   const handlEmailChange = (value) => {
     setEmail(value);
@@ -41,23 +38,20 @@ const RegistrationScreen = ({ navigation, route }) => {
     setIsPasswordVisible((prev) => !prev);
   };
 
+  const onLogin = async () => {
+    // navigation.navigate("Home");
+    console.log('onLogin')
+    try {
+      await loginDB({ email, password }, dispatch)
+      // Логіка для переходу на інший екран або відображення повідомлення про успіх
+    } catch (err) {
+      console.error('Login error:', err); // Логування помилок
+    }
+  };
+
   const onSignUp = () => {
-    Alert.alert("Credentials", `${login} + ${email} + ${password}`);
-  };
-
-  const onLogin = () => {
-    navigation.navigate("Login", { userEmail: email });
-    console.log("Log in!");
-  };
-
-  const onAddAvatar = () => {
-    setIsAvatar(true);
-    console.log("Add photo");
-  };
-
-  const onDelAvatar = () => {
-    setIsAvatar(false);
-    console.log("Delete photo");
+    navigation.navigate("Registration", { userEmail: email });
+    console.log("Sign up!");
   };
 
   const showBtn = (
@@ -69,7 +63,7 @@ const RegistrationScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/bg-image.png")}
+        source={require("../../assets/images/bg-image.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -80,36 +74,13 @@ const RegistrationScreen = ({ navigation, route }) => {
             style={styles.container}
           >
             <View style={styles.formContainer}>
-              <View style={styles.avatarContainer}>
-                {isAvatar && (
-                  <Image
-                    source={require("../assets/images/avatar-image.png")}
-                    resizeMode="cover"
-                    style={styles.image}
-                  />
-                )}
-                <TouchableOpacity
-                  style={[styles.addAvatarBtn, isAvatar && styles.delAvatarBtn]}
-                  onPress={isAvatar ? onDelAvatar : onAddAvatar}
-                >
-                  <Text
-                    style={[styles.addAvatarText, isAvatar && styles.grayText]}
-                  >
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.title}>Реєстрація</Text>
+              <Text style={styles.title}>Увійти</Text>
               <View style={styles.wrapContainer}>
                 <View style={styles.innerContainer}>
                   <Input
-                    placeholder="Логін"
-                    onTextChange={handLoginChange}
-                    autofocus={true}
-                  />
-                  <Input
                     placeholder="Адреса електронної пошти"
                     onTextChange={handlEmailChange}
+                    autofocus={true}
                   />
                   <Input
                     placeholder="Пароль"
@@ -120,14 +91,14 @@ const RegistrationScreen = ({ navigation, route }) => {
                   />
                 </View>
                 <View style={styles.InnerContainer}>
-                  <Button onPress={onSignUp}>
-                    <Text style={styles.loginBtnText}>Зареєструватися</Text>
+                  <Button onPress={onLogin}>
+                    <Text style={styles.loginBtnText}>Увійти</Text>
                   </Button>
                   <View style={styles.signUpContainer}>
                     <Text style={styles.baseText}>
-                      Вже є акаунт?
-                      <TouchableWithoutFeedback onPress={onLogin}>
-                        <Text> Увійти</Text>
+                      Немає акаунту?
+                      <TouchableWithoutFeedback onPress={onSignUp}>
+                        <Text style={styles.signUpText}> Зареєструватися</Text>
                       </TouchableWithoutFeedback>
                     </Text>
                   </View>
@@ -141,7 +112,7 @@ const RegistrationScreen = ({ navigation, route }) => {
   );
 };
 
-export default RegistrationScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -163,14 +134,14 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: SCREEN_WIDTH,
-    height: "70%",
+    height: "50%",
     backgroundColor: colors.white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     position: "absolute",
     bottom: 0,
     paddingHorizontal: 16,
-    paddingTop: 92,
+    paddingTop: 32,
   },
   title: {
     color: colors.balack_main,
@@ -209,41 +180,5 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     textDecorationLine: "underline",
-  },
-  avatarContainer: {
-    width: 120,
-    height: 120,
-    backgroundColor: colors.ligth_gray,
-    borderRadius: 16,
-    position: "absolute",
-    top: -60,
-    left: "50%",
-    transform: [{ translateX: -50 }],
-  },
-  addAvatarBtn: {
-    width: 25,
-    height: 25,
-    borderRadius: 50,
-    borderColor: colors.orange,
-    borderWidth: 1,
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  delAvatarBtn: {
-    borderColor: colors.border_gray,
-    backgroundColor: colors.white,
-  },
-  addAvatarText: {
-    color: colors.orange,
-    fontSize: 25,
-    lineHeight: 25,
-  },
-  grayText: {
-    color: colors.gray,
-    transform: [{ rotate: "45deg" }],
   },
 });

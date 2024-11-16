@@ -6,9 +6,9 @@ import {
     ScrollView,
     TouchableOpacity,
   } from "react-native";
-  import { colors } from "../styles/global";
+  import { colors } from "../../styles/global";
   import Input from "../components/Input";
-  import SendMessageIcon from "../icons/SendMessageIcon";
+  import SendMessageIcon from "../../icons/SendMessageIcon";
   
   const CommentsScreen = () => {
     const onSendMessage = () => {
@@ -25,14 +25,14 @@ import {
     return (
       <View style={styles.container}>
         <Image
-          source={require("../assets/images/comment-sunset.png")}
+          source={require("../../assets/images/comment-sunset.png")}
           resizeMode="cover"
           style={styles.postImage}
         />
         <ScrollView contentContainerStyle={{ gap: 24 }}>
           <View style={styles.commentBlock}>
             <Image
-              source={require("../assets/images/comment-avatar-left.png")}
+              source={require("../../assets/images/comment-avatar-left.png")}
               resizeMode="cover"
               style={styles.avatar}
             />
@@ -55,14 +55,14 @@ import {
               <Text style={styles.messageInfo}>09 червня, 2020 | 09:14</Text>
             </View>
             <Image
-              source={require("../assets/images/comment-avatar-right.png")}
+              source={require("../../assets/images/comment-avatar-right.png")}
               resizeMode="cover"
               style={styles.avatar}
             />
           </View>
           <View style={styles.commentBlock}>
             <Image
-              source={require("../assets/images/comment-avatar-left.png")}
+              source={require("../../assets/images/comment-avatar-left.png")}
               resizeMode="cover"
               style={styles.avatar}
             />

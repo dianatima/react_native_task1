@@ -12,11 +12,11 @@ import {
     View,
   } from "react-native";
   import { useEffect, useState } from "react";
-  import LocationIcon from "../icons/LocationIcon";
-  import { colors } from "../styles/global";
-  import PhotoIcon from "../icons/PhotoIcon";
+  import LocationIcon from "../../icons/LocationIcon";
+  import { colors } from "../../styles/global";
+  import PhotoIcon from "../../icons/PhotoIcon";
   import Button from "../components/Button";
-  import DeleteBtn from "../icons/DeleteIcon";
+  import DeleteBtn from "../../icons/DeleteIcon";
   import { useRoute } from "@react-navigation/native";
   import * as Location from "expo-location";
   
@@ -31,7 +31,6 @@ import {
     const [locationCoord, setLocationCoord] = useState(null);
   
     const route = useRoute();
-  
     useEffect(() => {
       if (route.params) {
         setMyImgUri(route.params.imgUri);

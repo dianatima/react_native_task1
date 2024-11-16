@@ -7,16 +7,23 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import { colors } from "../styles/global";
-import LogoutBotton from "../components/LogoutBottom";
-import LocationIcon from "../icons/LocationIcon";
-import CommentIconOrange from "../icons/CommentIconOrange";
-import LikeIcon from "../icons/LikeIcon";
+import LocationIcon from "../../icons/LocationIcon";
+import EditIcon from "../../icons/EditIcon";
+import CommentIconOrange from "../../icons/CommentIconOrange";
+import LikeIcon from "../../icons/LikeIcon";
 import { ScrollView } from "react-native-gesture-handler";
+import { colors } from "../../styles/global";
+import { logoutDB } from "../utils/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
 const ProfileScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [userName, setUserName] = useState(userInfo?.displayName || '')
+
   const onDelAvatar = () => {
     console.log("Delete photo");
   };
@@ -29,7 +36,7 @@ const ProfileScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/bg-image.png")}
+        source={require("../../assets/images/bg-image.png")}
         resizeMode="stretch"
         style={styles.image}
       />
@@ -37,21 +44,19 @@ const ProfileScreen = ({ navigation, route }) => {
         <View style={styles.formContainer}>
           <View style={styles.avatarContainer}>
             <Image
-              source={require("../assets/images/avatar-image.png")}
+              source={userInfo.profilePhoto ? ({ uri: userInfo?.profilePhoto }) : (require("../../assets/images/avatar-image.png")) }
               resizeMode="cover"
               style={styles.image}
             />
-            <TouchableOpacity
-              style={[styles.addAvatarBtn, styles.delAvatarBtn]}
-              onPress={onDelAvatar}
-            >
-              <Text style={[styles.addAvatarText, styles.grayText]}>+</Text>
-            </TouchableOpacity>
+
           </View>
           <View style={styles.logOut}>
-            <LogoutBotton onPress={() => console.log("LOG OUT!")} />
+      
+              <TouchableOpacity onPress={() => navigation.navigate("EditUser")}>
+              <EditIcon />
+              </TouchableOpacity>
           </View>
-          <Text style={styles.avatarName}>Natali Romanova</Text>
+          <Text style={styles.avatarName}>{userInfo?.displayName || 'Anonim'}</Text>
           <ScrollView
             contentContainerStyle={{
               gap: 32,
@@ -61,7 +66,7 @@ const ProfileScreen = ({ navigation, route }) => {
           >
             <View style={styles.postItem}>
               <Image
-                source={require("../assets/images/post-nature.png")}
+                source={require("../../assets/images/post-nature.png")}
                 resizeMode="cover"
                 style={styles.postImage}
               />
@@ -89,7 +94,7 @@ const ProfileScreen = ({ navigation, route }) => {
             </View>
             <View style={styles.postItem}>
               <Image
-                source={require("../assets/images/post-sunset.png")}
+                source={require("../../assets/images/post-sunset.png")}
                 resizeMode="cover"
                 style={styles.postImage}
               />
@@ -117,7 +122,7 @@ const ProfileScreen = ({ navigation, route }) => {
             </View>
             <View style={styles.postItem}>
               <Image
-                source={require("../assets/images/post-house.png")}
+                source={require("../../assets/images/post-house.png")}
                 resizeMode="cover"
                 style={styles.postImage}
               />
@@ -169,6 +174,7 @@ const styles = StyleSheet.create({
     width: "100%",
     top: 0,
     bottom: 0,
+    borderRadius: 16,
   },
   formContainer: {
     width: SCREEN_WIDTH,
@@ -305,4 +311,15 @@ const styles = StyleSheet.create({
   underlinedText: {
     textDecorationLine: "underline",
   },
+  editBtn: {
+    borderWidth: 1,
+    width: 35,
+    height: 35,
+    borderRadius: 12,
+    borderColor: colors.gray,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 7,
+    paddingTop: 4
+  }
 });

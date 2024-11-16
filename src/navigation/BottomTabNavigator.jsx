@@ -1,21 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import LogoutBotton from "../components/LogoutBottom";
 import BackButton from "../components/BackButton";
 import PostsScreen from "../screens/PostsScreen";
 import CreatePostsScreen from "../screens/CreatePostsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { colors } from "../styles/global";
+
 import { StyleSheet, View } from "react-native";
-import FeatherIcon from "../icons/FeatherIcon";
-import UserIcon from "../icons/UserIcon";
-import CreatePostIcon from "../icons/CreatePostIcon";
-import MapScreen from "../screens/MapScreen";
-import CameraScreen from "../screens/CameraScreen";
+import FeatherIcon from "../../icons/FeatherIcon";
+import UserIcon from "../../icons/UserIcon";
+import CreatePostIcon from "../../icons/CreatePostIcon";
+import { colors } from "../../styles/global";
+import { useDispatch } from "react-redux";
+import { logoutDB } from "../utils/auth";
 
 const Tab = createBottomTabNavigator()
 
 const BottomTabNavigator = () => {
+    const dispatch = useDispatch();
+
     return (
         <Tab.Navigator
             initialRouteName="PostsScreen"
@@ -29,7 +31,7 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Posts" component={PostsScreen}
             options={ ({navigation}) => ({
                 title: 'Публікації',
-                headerRight: () => <LogoutBotton onPress={() => console.log("LOG OUT!")} />,
+                headerRight: () => <LogoutBotton onPress={() => logoutDB(dispatch)} />,
                 // tabBarIcon: ({ focused }) => <Ionicons name="grid-outline" size={24} color={focused ? colors.orange : colors.balack_main} />,
                 tabBarIcon: ({ focused }) => <FeatherIcon color={focused ? colors.orange : colors.balack_main} />,
                 

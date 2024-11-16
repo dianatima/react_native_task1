@@ -5,13 +5,17 @@ import {
     Text,
     TouchableWithoutFeedback,
   } from "react-native";
-  import { colors } from "../styles/global";
-  import CommentIcon from "../icons/CommentIcon";
-  import LocationIcon from "../icons/LocationIcon";
+  import { colors } from "../../styles/global";
+  import CommentIcon from "../../icons/CommentIcon";
+  import LocationIcon from "../../icons/LocationIcon";
 import { useRoute } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { useState } from "react";
   
 const PostsScreen = ({ navigation }) => {
-    
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [userName, setUserName] = useState(userInfo?.displayName || '')
+    console.log('userInfo',userInfo);
   const route = useRoute();
   console.log('params', route.params);
   
@@ -30,20 +34,21 @@ const PostsScreen = ({ navigation }) => {
         <View style={styles.userContainer}>
           <View style={styles.avatarContainer}>
             <Image
-              source={require("../assets/images/avatar-image.png")}
+              // source={require("../../assets/images/avatar-image.png")}
+              source={userInfo.profilePhoto ? ({ uri: userInfo?.profilePhoto }) : (require("../../assets/images/avatar-image.png")) }
               resizeMode="cover"
               style={styles.image}
             />
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.userName}>Natalia Romanova</Text>
-            <Text style={styles.userEmail}>email@example.com</Text>
+            <Text style={styles.userName}>{userInfo?.displayName || 'Anonim'}</Text>
+            <Text style={styles.userEmail}>{userInfo?.email || 'Anonim'}</Text>
           </View>
         </View>
         <View style={styles.postList}>
           <View style={styles.postItem}>
             <Image
-              source={require("../assets/images/post-nature.png")}
+              source={require("../../assets/images/post-nature.png")}
               resizeMode="cover"
               style={styles.postImage}
             />
@@ -96,6 +101,7 @@ const PostsScreen = ({ navigation }) => {
     image: {
       height: "100%",
       width: "100%",
+      borderRadius: 16,
     },
     userName: {
       fontSize: 13,
